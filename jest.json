@@ -1,0 +1,35 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": [".spec.ts$"],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  "collectCoverageFrom": [
+    "<rootDir>/**/*.tsx",
+    "<rootDir>/**/*.ts",
+    "!src/**/*.module.ts",
+    "!src/**/*.providers.ts",
+    "!src/**/*.exports.ts",
+    "!src/**/*.imports.ts",
+    "!src/**/*.constants.ts",
+    "!src/**/*.code.ts",
+    "!src/**/*.tokens.ts"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  },
+  "collectCoverage": true,
+  "testPathIgnorePatterns": ["/node_modules/", "/dist/*"],
+  "modulePathIgnorePatterns": ["<rootDir>/dist/", "<rootDir>/.*/.*\\.module\\.ts$"],
+  "moduleNameMapper": {
+    "@api-users/(.*)": "<rootDir>/api/src/users/$1",
+    "@api-shared/(.*)": "<rootDir>/api/src/shared/$1"
+  }
+}

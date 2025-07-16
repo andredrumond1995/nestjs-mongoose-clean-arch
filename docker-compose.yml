@@ -1,0 +1,94 @@
+version: '3.4'
+
+services:
+  test-app-api-1:
+    container_name: test-app-1
+    build:
+      context: './'
+      dockerfile: ./docker/api.dockerfile
+    environment:
+      NODE_ENV: dev
+      APP_NAME: 'test-app-1'
+      DEBUG_PORT: 9239
+    ports:
+      - 9239:9239
+      - 3000:3000
+    volumes:
+      - ./:/api
+      - /api/node_modules
+    user: "1000:1000" 
+    depends_on:
+      - test-app-mongo-primary
+      - test-app-mongo-secondary
+      - test-app-mongo-secondary-hidden
+    env_file: .env
+    restart: always
+    networks:
+      - test-app
+
+  test-app-rs:
+    build:
+      context: './'
+      dockerfile: ./docker/mongo-rs.dockerfile
+    container_name: test-app-rs
+    depends_on:
+      - test-app-mongo-primary
+      - test-app-mongo-secondary
+      - test-app-mongo-secondary-hidden
+    networks:
+      - test-app
+
+  test-app-mongo-primary:
+    container_name: test-app-mongo-primary
+    image: mongo:5.0.20
+    ports:
+      - 27021:27017
+    volumes:
+      - mongodb_data_app_test:/data/db
+    command: mongod --replSet rs1 --port 27017 --oplogSize 16
+    networks:
+      - test-app
+    healthcheck:
+      test: ['CMD', 'mongo', '--port', '27017', '--eval', 'db.serverStatus()']
+      interval: 5s
+      timeout: 30s
+      retries: 10
+
+  test-app-mongo-secondary:
+    container_name: test-app-mongo-secondary
+    image: mongo:5.0.20
+    ports:
+      - 27022:27017
+    command: mongod --replSet rs1 --port 27017 --oplogSize 16
+    networks:
+      - test-app
+    healthcheck:
+      test: ['CMD', 'mongo', '--port', '27017', '--eval', 'db.serverStatus()']
+      interval: 5s
+      timeout: 30s
+      retries: 10
+
+  test-app-mongo-secondary-hidden:
+    container_name: test-app-mongo-secondary-hidden
+    image: mongo:5.0.20
+    ports:
+      - 27023:27017
+    command: mongod --replSet rs1 --port 27017 --oplogSize 16
+    networks:
+      - test-app
+    healthcheck:
+      test: ['CMD', 'mongo', '--port', '27017', '--eval', 'db.serverStatus()']
+      interval: 5s
+      timeout: 30s
+      retries: 10
+
+volumes:
+  mongodb_data_app_test:
+    
+networks:
+  test-app:
+    name: test-app
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

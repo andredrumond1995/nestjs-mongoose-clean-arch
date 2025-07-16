@@ -1,0 +1,2 @@
+export const PACKAGES_TO_CATEGORIZE_CATEGORIZATION_QUEUE = 'packages_to_categorize_categorization_queue';
+export const PACKAGES_CATEGORIZED_CATEGORIZATION_QUEUE = 'packages_categorized_categorization_queue';

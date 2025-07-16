@@ -1,0 +1,2 @@
+export const MONGO_DUPLICATED_KEY_EXCEPTION_CODE: number = 11000;
+export const MONGO_PATH_COLLISION: number = 31250;
