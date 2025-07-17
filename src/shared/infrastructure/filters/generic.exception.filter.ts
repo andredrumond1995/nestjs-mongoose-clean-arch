@@ -1,7 +1,7 @@
 import { Catch, ExceptionFilter, HttpException, ArgumentsHost, Inject, HttpStatus } from '@nestjs/common';
 import { API_EVENTS } from '@shared/application/constants/logging-events.constants';
 import { ApiResponseService } from '@shared/application/services/api-response/api-response.service';
-import { IErrorResponseData } from '@shared/application/services/api-response/types/http.service.types';
+import { IErrorResponseData } from '@shared/application/services/api-response/types/api-response.service.types';
 import {
   HTTP_SERVICE_TOKEN,
   LOGGER_SERVICE_TOKEN,

@@ -7,10 +7,12 @@ const commonFields = {
   user_id: 1,
 };
 import { IMongoosePopulateOptions } from '@shared/application/types/mongoose.types';
+import { TODO_MONGODB_VIRTUAL_FIELD } from './mongodb-virtual-fields.constants';
+import { TODOS_MONGODB_COLLECTION_NAME } from '@todos/infrastructure/constants/todos-mongodb.constants';
 export const MONGODB_POPULATE_COLLECTION_REFS: IMongoosePopulateOptions = {
   ['todo']: {
-    path: 'TODO_MONGODB_VIRTUAL_FIELD',
-    model: 'TODOS_MONGODB_COLLECTION_NAME',
+    path: TODO_MONGODB_VIRTUAL_FIELD,
+    model: TODOS_MONGODB_COLLECTION_NAME,
     select: {
       ...commonFields,
     },

@@ -9,12 +9,12 @@ import { IGetByIdUsecaseParams } from '@shared/application/types/usecases.types'
 import { TodosService } from '@todos/application/services/todos.service';
 import { ModuleRef } from '@nestjs/core';
 import { UNIT_OF_WORK_TOKEN } from '@shared/infrastructure/modules/unit-of-work/ioc-tokens/unit-of-work.ioc.tokens';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
 import { TodoEntity } from '@shared/application/entities/todo.entity';
 import { GetByIdUsecase } from '@shared/application/usecases/get-by-id.usecase';
 import { FullPartial } from '@shared/typings/partial.types';
 import { TODOS_MONGODB_COLLECTION_NAME } from '@todos/infrastructure/constants/todos-mongodb.constants';
 import { TodosMongooseDocument } from '@todos/infrastructure/schemas/todos-mongoose.schema';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
 
 @Injectable()
 export class GetByIdTodosV1Usecase

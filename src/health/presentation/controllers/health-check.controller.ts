@@ -11,13 +11,13 @@ export class HealthCheckController {
   public constructor(
     private health: HealthCheckService,
     @Inject(DATABASE_HEALTH_INDICATOR)
-    private walletSyncDatabaseHealthIndicator: IHealthIndicator,
+    private databaseHealthIndicator: IHealthIndicator,
   ) {}
   @HealthCheck()
   @Get()
   public async check(): Promise<HealthCheckResult> {
     const checks = await this.health.check([
-      (): Promise<HealthIndicatorResult> => this.walletSyncDatabaseHealthIndicator.isHealthy(),
+      (): Promise<HealthIndicatorResult> => this.databaseHealthIndicator.isHealthy(),
     ]);
 
     const allChecksUp = every(get(checks, 'details'), { status: 'up' });

@@ -1,16 +1,9 @@
 import {
-  getDefaultOdataQueryParams,
-  MONGODB_POPULATE_COLLECTION_REFS,
-  MONGODB_AGGREGATE_PATH_CONFIGS,
-} from '@shared/application/constants/mongodb';
-import {
   IODataParamsDB,
   IODataQueryParam,
   AggregateConfig,
 } from '@shared/application/types/odata-params.types';
 import { RecordAny } from '@shared/typings/any.types';
-
-import { ObjectId } from 'bson';
 import {
   join,
   defaults,
@@ -28,13 +21,11 @@ import {
   keys,
   compact,
   reduce,
-  defaultTo,
   tail,
   merge,
   dropWhile,
   omitBy,
   cloneDeep,
-  clone,
   forEach,
   chain,
   toNumber,
@@ -48,6 +39,9 @@ import { buildQueryString } from './generate-rawquerystring-from-not-empty-value
 import { IQuery } from '@shared/typings/query-string.types';
 import { getQueryStringParamValue } from '@shared/utils/query-string.utils';
 import { convertToObjectIdNestedProps } from '@shared/utils/object-id.utils';
+import { MONGODB_AGGREGATE_PATH_CONFIGS } from '@shared/application/constants/mongodb/mongodb-aggregate-path-configs.constants';
+import { MONGODB_POPULATE_COLLECTION_REFS } from '@shared/application/constants/mongodb/mongodb-populate-collection-refs.constants';
+import { getDefaultOdataQueryParams } from '@shared/application/constants/mongodb/mongodb-query-params.constants';
 
 
 function extractSizeInAndNestedQueryFromFilter(filterStr: string): {

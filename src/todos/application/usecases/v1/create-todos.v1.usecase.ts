@@ -8,7 +8,6 @@ import { TODOS_REPOSITORY_TOKEN } from '@todos/infrastructure/module/ioc-tokens/
 import { UNIT_OF_WORK_TOKEN } from '@shared/infrastructure/modules/unit-of-work/ioc-tokens/unit-of-work.ioc.tokens';
 import { TODOS_SERVICE_TOKEN } from '@todos/infrastructure/module/ioc-tokens/services/todos-service.ioc.tokens';
 import { TodosService } from '@todos/application/services/todos.service';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
 import { ICreateUsecaseParams } from '@shared/application/types/usecases.types';
 import { ModuleRef } from '@nestjs/core';
 import { TodoEntity } from '@shared/application/entities/todo.entity';
@@ -16,6 +15,7 @@ import { CreateUsecase } from '@shared/application/usecases/create.usecase';
 import { FullPartial } from '@shared/typings/partial.types';
 import { TODOS_MONGODB_COLLECTION_NAME } from '@todos/infrastructure/constants/todos-mongodb.constants';
 import { TodosMongooseDocument } from '@todos/infrastructure/schemas/todos-mongoose.schema';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
 
 @Injectable()
 export class CreateTodosV1Usecase extends CreateUsecase<TodoEntity, TodosService> implements CreateTodosV1UsecasePort {

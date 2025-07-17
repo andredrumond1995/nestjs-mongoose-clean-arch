@@ -6,7 +6,6 @@ import { MONGODB_DATABASE_NAME } from '@shared/application/constants/mongodb/mon
 import { ITodosRepositoryPort } from '@todos/domain/ports/repositories/todos.repository.port';
 import { TODOS_REPOSITORY_TOKEN } from '@todos/infrastructure/module/ioc-tokens/repositories/todos-repositories.ioc.tokens';
 import { UNIT_OF_WORK_TOKEN } from '@shared/infrastructure/modules/unit-of-work/ioc-tokens/unit-of-work.ioc.tokens';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
 import { IDeleteSoftUsecaseOutput, IDeleteSoftUsecaseParams } from '@shared/application/types/usecases.types';
 import { TodosService } from '@todos/application/services/todos.service';
 import { TODOS_SERVICE_TOKEN } from '@todos/infrastructure/module/ioc-tokens/services/todos-service.ioc.tokens';
@@ -15,6 +14,7 @@ import { TodoEntity } from '@shared/application/entities/todo.entity';
 import { DeleteSoftUsecase } from '@shared/application/usecases/delete-soft.usecase';
 import { TODOS_MONGODB_COLLECTION_NAME } from '@todos/infrastructure/constants/todos-mongodb.constants';
 import { TodosMongooseDocument } from '@todos/infrastructure/schemas/todos-mongoose.schema';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
 
 @Injectable()
 export class DeleteSoftTodosV1Usecase

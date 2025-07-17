@@ -92,6 +92,32 @@ This project provides a robust, scalable, and modern structure for task manageme
 
 ---
 
+### 6. Health Check
+
+- **Endpoint:** `GET /health`
+- **Description:**
+  Returns the health status of the API and its dependencies (such as the database).
+- **Example Response:**
+  ```json
+  {
+    "success": true,
+    "datetime": "17/07/2025 09:48:10",
+    "httpMethod": "GET",
+    "path": "/health",
+    "data": {
+      "status": "ok",
+      "error": {},
+      "details": {
+        "test_app_db": {
+          "status": "up"
+        }
+      }
+    }
+  }
+  ```
+
+---
+
 ## 🔎 OData v4 Query Support for MongoDB
 
 This API natively supports OData v4 queries on the listing endpoint (`GET /v1/todos`).

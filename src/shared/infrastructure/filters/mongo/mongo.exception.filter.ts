@@ -6,7 +6,7 @@ import {
   MONGO_DUPLICATED_KEY_EXCEPTION_CODE,
   MONGO_PATH_COLLISION,
 } from '@shared/application/constants/filters/mongo.exception.filter.codes';
-import { IErrorResponseData } from '@shared/application/services/api-response/types/http.service.types';
+import { IErrorResponseData } from '@shared/application/services/api-response/types/api-response.service.types';
 import {
   HTTP_SERVICE_TOKEN,
   LOGGER_SERVICE_TOKEN,

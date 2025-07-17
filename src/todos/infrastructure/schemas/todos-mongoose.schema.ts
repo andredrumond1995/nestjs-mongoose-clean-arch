@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { setTimestampsTzOnCreateMdw } from '@shared/infrastructure/middlewares/set-timestamps-tz-on-save.mdw';
+import { setTimestampsTzOnUpdateMdw } from '@shared/infrastructure/middlewares/set-timestamps-tz-on-update.mdw';
 import { ObjectId } from 'bson';
-import { setTimestampsTzOnCreateMdw, setTimestampsTzOnUpdateMdw } from '@shared/infrastructure/middlewares';
 import { Document } from 'mongoose';
 
 @Schema({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
-import { IDataHttpResponse, IHTTPResponse } from './types/http.service.types';
+import { IDataHttpResponse, IHTTPResponse } from './types/api-response.service.types';
 import { formatDatetime } from '@shared/utils/datetime.utils';
 @Injectable()
 export class ApiResponseService {

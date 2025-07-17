@@ -4,9 +4,9 @@ import { DatabasesModule } from '@shared/infrastructure/modules/database/databas
 import { FiltersModule } from '@shared/infrastructure/modules/filters/filters.module';
 import { InterceptorsModule } from '@shared/infrastructure/modules/interceptors/interceptors.module';
 import { SharedServicesModule } from '@shared/infrastructure/modules/shared-services/shared.services.module';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
 import { TodosModule } from './todos/infrastructure/module/todos.module';
 import { HealthModule } from './health/infrastructure/module/health.module';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
 
 @Module({
   imports: [
