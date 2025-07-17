@@ -5,12 +5,12 @@ import { IMongooseFindExecItem, IMongooseFindExecItems, IUpdateManyRepositoryRes
 import { IPagination } from './pagination.types';
 import { IFiles } from './http-request.types';
 import { ModuleRef } from '@nestjs/core';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
-import { IRepositoryPort } from '../ports/repositories';
 import { IExpressRequest } from './express.types';
 import { RecordAny } from './any.types';
 import { FullPartial } from '@shared/typings/partial.types';
 import { IQuery } from '@shared/typings/query-string.types';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
+import { IRepositoryPort } from '../ports/repositories/repository.port';
 
 export interface IRequestMetadata {
   ipAddress?: string;
