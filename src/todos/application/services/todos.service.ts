@@ -8,6 +8,7 @@ import {
 import { ModuleRef } from '@nestjs/core';
 import { ServiceMethodsEnum } from '@shared/application/enums/service.enums';
 import { Service } from '@shared/services/service';
+import { IServiceInjection, IServiceParams } from '@shared/application/types/services.types';
 
 @Injectable()
 export class TodosService extends Service<TodoEntity> {

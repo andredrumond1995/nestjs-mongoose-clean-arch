@@ -1,3 +1,3 @@
-import { ImportsDI } from "@shared/application/types/di.types";
+import { ImportsDI } from '@shared/application/types/di.types';
 
 export const sharedServicesDIImports: ImportsDI = [];

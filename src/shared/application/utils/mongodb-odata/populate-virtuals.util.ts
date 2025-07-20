@@ -33,8 +33,8 @@ export function populateVirtualsUtil<Entity extends object>(
                     : omit(item, fieldsToOmitFromRef),
                 )
               : nestedRefs
-              ? handleNestedRef(omit(ref, fieldsToOmitFromRef), nestedRefs)
-              : omit(ref, fieldsToOmitFromRef);
+                ? handleNestedRef(omit(ref, fieldsToOmitFromRef), nestedRefs)
+                : omit(ref, fieldsToOmitFromRef);
           } else {
             delete document[name];
           }
@@ -67,8 +67,8 @@ export function handleNestedRef<Entity>(document: Entity, refs: IPopulateVirtual
                 : omit(item, fieldsToOmitFromRef),
             )
           : nestedRefs
-          ? handleNestedRef(omit(ref, fieldsToOmitFromRef), nestedRefs)
-          : omit(ref, fieldsToOmitFromRef);
+            ? handleNestedRef(omit(ref, fieldsToOmitFromRef), nestedRefs)
+            : omit(ref, fieldsToOmitFromRef);
       } else {
         delete document[name];
       }

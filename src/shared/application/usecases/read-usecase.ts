@@ -1,7 +1,7 @@
-import { castArray, cloneDeep, get, has, isEmpty, map, omit, replace, split } from 'lodash';
-import { IRepositoryPort } from '../ports/repositories';
+import { castArray, cloneDeep, isEmpty, map, omit, replace } from 'lodash';
+import { IRepositoryPort } from '@shared/application/ports/repositories/repository.port';
 import { IReadUsecaseParams, IUsecaseDependencies } from '../types/usecases.types';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
 import { ModuleRef } from '@nestjs/core';
 import { IODataParamsDB } from '../types/odata-params.types';
 import { FullPartial } from '@shared/typings/partial.types';

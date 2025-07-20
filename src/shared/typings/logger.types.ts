@@ -1,5 +1,5 @@
-import { AppNamesEnum } from "@shared/enums/app-names.enums";
-import { LoggerLevelsEnum } from "@shared/enums/logger.enums";
+import { AppNamesEnum } from '@shared/enums/app-names.enums';
+import { LoggerLevelsEnum } from '@shared/enums/logger.enums';
 
 export interface ILoggerService {
   error(message: string | ILoggerMessage): void;

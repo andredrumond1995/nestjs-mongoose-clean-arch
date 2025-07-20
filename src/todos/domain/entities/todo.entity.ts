@@ -19,11 +19,11 @@ export class TodoEntity {
     assign(this, partial);
   }
 
-  public static validateCreate(input: unknown) {
-    return todosCreateZodSchema.parse(input);
+  public static validateCreate(input: unknown): TodoEntity {
+    return todosCreateZodSchema.parse(input) as TodoEntity;
   }
 
-  public static validateUpdate(input: unknown) {
-    return todosUpdateZodSchema.parse(input);
+  public static validateUpdate(input: unknown): TodoEntity {
+    return todosUpdateZodSchema.parse(input) as TodoEntity;
   }
 }

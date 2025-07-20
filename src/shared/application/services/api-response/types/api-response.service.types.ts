@@ -1,4 +1,3 @@
-
 export interface IHTTPResponse<T = any> {
   success: boolean;
   datetime: string;
@@ -9,7 +8,7 @@ export interface IHTTPResponse<T = any> {
 
 export interface IErrorResponseData {
   stack?: string;
-  message?: string
+  message?: string;
 }
 
 export type ISuccessResponse = any | any[];

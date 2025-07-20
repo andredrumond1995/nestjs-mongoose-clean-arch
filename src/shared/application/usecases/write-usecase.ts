@@ -1,22 +1,7 @@
 import { ModuleRef } from '@nestjs/core';
-import { UnitOfWork } from '@shared/infrastructure/unit-of-work';
-import {
-  isEmpty,
-  map,
-  join,
-  get,
-  some,
-  size,
-  omit,
-  values,
-  pick,
-  keys,
-  compact,
-  isNil,
-  every,
-  has,
-} from 'lodash';
-import { IRepositoryPort } from '../ports/repositories';
+import { UnitOfWork } from '@shared/infrastructure/unit-of-work/unit-of-work';
+import { isEmpty, map, join, get, some, size, omit, values, pick, keys, compact, isNil } from 'lodash';
+import { IRepositoryPort } from '@shared/application/ports/repositories/repository.port';
 import { IUsecaseParams, IUsecaseDependencies } from '../types/usecases.types';
 import { InputIsNotUniqueException } from '../exceptions/input-is-not-unique.exception';
 import { FullPartial } from '@shared/typings/partial.types';
@@ -72,7 +57,6 @@ export class WriteUsecase<Entity, EntityService> {
       rawQueryString,
     });
 
-    console.log({existingDocument})
     if (isEmpty(existingDocument['items'])) return;
     const duplicatedFieldsFound = pick(dataToCheck, this.uniqueInputFields);
     const duplicatedKeysFound = join(keys(duplicatedFieldsFound), ', ');

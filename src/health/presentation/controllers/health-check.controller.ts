@@ -2,9 +2,7 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { HealthCheckService, HealthCheck, HealthCheckResult, HealthIndicatorResult } from '@nestjs/terminus';
 import { IHealthIndicator } from '../../application/types/health-indicator.types';
 import { every, get, omit } from 'lodash';
-import {
-  DATABASE_HEALTH_INDICATOR,
-} from '../../infrastructure/module/ioc-tokens/health-database.ioc.tokens';
+import { DATABASE_HEALTH_INDICATOR } from '../../infrastructure/module/ioc-tokens/health-database.ioc.tokens';
 
 @Controller('health')
 export class HealthCheckController {

@@ -1,8 +1,4 @@
-import {
-  IODataParamsDB,
-  IODataQueryParam,
-  AggregateConfig,
-} from '@shared/application/types/odata-params.types';
+import { IODataParamsDB, IODataQueryParam, AggregateConfig } from '@shared/application/types/odata-params.types';
 import { RecordAny } from '@shared/typings/any.types';
 import {
   join,
@@ -37,12 +33,10 @@ import { PopulateOptions } from 'mongoose';
 import { createQuery } from 'odata-v4-mongodb';
 import { buildQueryString } from './generate-rawquerystring-from-not-empty-values.util';
 import { IQuery } from '@shared/typings/query-string.types';
-import { getQueryStringParamValue } from '@shared/utils/query-string.utils';
 import { convertToObjectIdNestedProps } from '@shared/utils/object-id.utils';
 import { MONGODB_AGGREGATE_PATH_CONFIGS } from '@shared/application/constants/mongodb/mongodb-aggregate-path-configs.constants';
 import { MONGODB_POPULATE_COLLECTION_REFS } from '@shared/application/constants/mongodb/mongodb-populate-collection-refs.constants';
 import { getDefaultOdataQueryParams } from '@shared/application/constants/mongodb/mongodb-query-params.constants';
-
 
 function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
   inQuery: RecordAny;
@@ -62,7 +56,6 @@ function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
   const sizeQuery = {};
   let remainingFilter = filterStr;
 
-  // Primeiro processa condições IN
   const inMatches = Array.from(remainingFilter.matchAll(inRegex) || []);
   forEach(inMatches, (match) => {
     const [fullMatch, nestedProp, normalProp, valuesStr] = match;
@@ -80,7 +73,6 @@ function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
     remainingFilter = remainingFilter.replace(fullMatch, '').trim();
   });
 
-  // Depois processa condições contains('prop.path', eq 'value')
   const containsMatches = Array.from(remainingFilter.matchAll(containsRegex)) || [];
   forEach(containsMatches, (match) => {
     const [fullMatch, propPath, value] = match;
@@ -88,7 +80,6 @@ function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
     remainingFilter = remainingFilter.replace(fullMatch, '').trim();
   });
 
-  // Depois processa condições EQ em nested props
   const eqMatches = Array.from(remainingFilter.matchAll(nestedEqRegex)) || [];
   forEach(eqMatches, (match) => {
     const [fullMatch, propPath, stringValue, booleanValue] = match;
@@ -123,7 +114,6 @@ function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
     remainingFilter = remainingFilter.replace(fullMatch, '').trim();
   });
 
-  // Limpeza final do remainingFilter
   remainingFilter = chain(remainingFilter)
     .replace(/(^\s*(and|or)\s*|\s*(and|or)\s*$)/gi, '')
     .replace(/\s+/g, ' ')
@@ -131,10 +121,10 @@ function extractSizeInAndNestedQueryFromFilter(filterStr: string): {
     .value();
 
   remainingFilter = remainingFilter
-    .replace(/\s+(or|and)\s+(or|and)\s+/gi, ' $1 ') // junta or or → or
-    .replace(/^\s*(or|and)\s+/gi, '') // remove or no começo
-    .replace(/\s+(or|and)\s*$/gi, '') // remove or no final
-    .replace(/\s+/g, ' ') // colapsa espaços extras
+    .replace(/\s+(or|and)\s+(or|and)\s+/gi, ' $1 ')
+    .replace(/^\s*(or|and)\s+/gi, '')
+    .replace(/\s+(or|and)\s*$/gi, '')
+    .replace(/\s+/g, ' ')
     .trim();
 
   if (startsWith(remainingFilter, 'and ')) remainingFilter = join(drop(toArray(remainingFilter), 4), '');
@@ -197,9 +187,8 @@ export const createOdataMongoDB = (rawQueryString: string, query?: IQuery): IODa
 
     clonedOdataParams.aggregate = aggregate;
 
-
     return clonedOdataParams;
-  } catch (error) {
+  } catch {
     throw new Error(`Invalid raw QueryString: '${queryString}'`);
   }
 };

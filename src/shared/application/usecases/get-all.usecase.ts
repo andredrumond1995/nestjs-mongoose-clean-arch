@@ -44,7 +44,7 @@ export class GetAllUsecase<Entity, EntityService> extends ReadUsecase<Entity, En
   }
 
   protected async getAllItems(params: IGetAllUsecaseParams<Entity>): Promise<IMongooseFindExecItems<Entity>> {
-    const { odataDBParams = {} , dbSession } = params;
+    const { odataDBParams = {}, dbSession } = params;
     const items = await this.repository.getAll<Entity>({ odataDBParams, dbSession });
 
     return items;

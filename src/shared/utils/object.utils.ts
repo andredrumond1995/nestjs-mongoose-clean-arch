@@ -10,11 +10,9 @@ export function clearNilValuesAndEmptyObject<T = Record<any, any>>(obj: T): T {
   forOwn(obj, (value, key) => {
     if (isNil(value)) {
       delete obj[key];
-    }
-    else if (isPlainObject(value) && !isArray(value) && isEmpty(value) && !(value instanceof Date)) {
+    } else if (isPlainObject(value) && !isArray(value) && isEmpty(value) && !(value instanceof Date)) {
       delete obj[key];
-    }
-    else if (isPlainObject(value)) {
+    } else if (isPlainObject(value)) {
       clearNilValuesAndEmptyObject(value);
       if (isEmpty(value)) {
         delete obj[key];

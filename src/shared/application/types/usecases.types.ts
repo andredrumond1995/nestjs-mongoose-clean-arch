@@ -46,8 +46,10 @@ export interface IUpdateUsecaseParams<Entity> extends IUsecaseParams<Entity, Ful
   documentByIdInDB?: FullPartial<Entity>;
 }
 
-export interface IUpdateManyUsecaseBody<Entity = RecordAny>
-  extends Pick<IUpdateManyUsecaseParams<Entity>, 'filter' | 'ids' | 'input'> {}
+export type IUpdateManyUsecaseBody<Entity = RecordAny> = Pick<
+  IUpdateManyUsecaseParams<Entity>,
+  'filter' | 'ids' | 'input'
+>;
 
 export interface IUpdateManyUsecaseParams<Entity> extends IUsecaseParams<Entity, FullPartial<Entity>> {
   ids?: ObjectId[];
@@ -55,11 +57,11 @@ export interface IUpdateManyUsecaseParams<Entity> extends IUsecaseParams<Entity,
   documentByIdInDB?: FullPartial<Entity>;
 }
 
-export interface ICreateUsecaseParams<Entity> extends IUsecaseParams<Entity, FullPartial<Entity>> {}
+export type ICreateUsecaseParams<Entity> = IUsecaseParams<Entity, FullPartial<Entity>>;
 
-export interface ICreateManyUsecaseParams<Entity> extends IUsecaseParams<Entity, FullPartial<Entity>[]> {}
+export type ICreateManyUsecaseParams<Entity> = IUsecaseParams<Entity, FullPartial<Entity>[]>;
 
-export interface IBulkWriteUsecaseParams<Entity> extends IUsecaseParams<Entity, FullPartial<Entity>[]> {}
+export type IBulkWriteUsecaseParams<Entity> = IUsecaseParams<Entity, FullPartial<Entity>[]>;
 
 export interface IBaseDeleteSoftUsecaseParams<Entity> extends IUsecaseParams<Entity> {
   id?: ObjectId;
@@ -113,7 +115,6 @@ export interface IGetByIdUsecaseParams<Entity> {
   userIdFromRequest?: ObjectId;
   request?: IExpressRequest;
 }
-
 
 export interface IDeleteSoftUsecaseOutput {
   id: ObjectId;

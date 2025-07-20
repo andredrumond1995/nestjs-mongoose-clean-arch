@@ -7,7 +7,6 @@ import {
   IBulkWriteRepositoryParams,
   ICreateRepositoryParams,
   IDeleteRepositoryParams,
-  IDeleteSoftManyRepositoryParams,
   IDeleteSoftRepositoryParams,
   IGetAllRepositoryParams,
   IGetByIdRepositoryParams,
@@ -15,12 +14,8 @@ import {
   IGetTotalItemsRepositoryParams,
   IUpdateRepositoryParams,
 } from '@shared/application/types/repository.types';
-import { IRepositoryPort } from '@shared/application/ports/repositories';
-import {
-  IMongooseFindExecItem,
-  IMongooseFindExecItems,
-  IUpdateManyRepositoryResult,
-} from '@shared/application/types/mongoose.types';
+import { IRepositoryPort } from '@shared/application/ports/repositories/repository.port';
+import { IMongooseFindExecItem, IMongooseFindExecItems } from '@shared/application/types/mongoose.types';
 import { AggregateConfig, IODataParamsDB } from '@shared/application/types/odata-params.types';
 import { clearNilValuesAndEmptyObject } from '@shared/utils/object.utils';
 import { RecordAny } from '@shared/typings/any.types';
@@ -104,7 +99,11 @@ export class Repository implements IRepositoryPort {
     const shouldUseAggregate = !isEmpty(odataDBParams.aggregate) || hasPopulatedPathsInFilterQuery;
 
     if (shouldUseAggregate) {
-      return this.getAllWithAggregate<Entity>(odataDBParams, model, dbSession ?? undefined) as unknown as IMongooseFindExecItems<Entity>;
+      return this.getAllWithAggregate<Entity>(
+        odataDBParams,
+        model,
+        dbSession ?? undefined,
+      ) as unknown as IMongooseFindExecItems<Entity>;
     }
 
     const filter = odataDBParams['query'] ?? {};
@@ -172,7 +171,9 @@ export class Repository implements IRepositoryPort {
 
     if (odataDBParams && !isEmpty(odataDBParams.aggregate)) {
       const aggregateParams = { ...odataDBParams, query: queryWithId };
-      return first(await this.getAllWithAggregate<Entity>(aggregateParams, model, dbSession)) as IMongooseFindExecItem<Entity>;
+      return first(
+        await this.getAllWithAggregate<Entity>(aggregateParams, model, dbSession),
+      ) as IMongooseFindExecItem<Entity>;
     }
 
     const query = model.findOne(queryWithId).session(dbSession ?? null);
@@ -224,7 +225,7 @@ export class Repository implements IRepositoryPort {
     for (const key in query) {
       const isRegexWithFlags = query[key] instanceof RegExp && (query[key].global || query[key].ignoreCase);
 
-      if (query.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(query, key)) {
         const value = query[key];
 
         if (isRegexWithFlags) {
@@ -475,10 +476,7 @@ export class Repository implements IRepositoryPort {
       });
     }
 
-    const aggregationFilters = this.getAggregationFilters(
-      odataDBParams.query!,
-      odataDBParams.aggregate ?? []
-    );
+    const aggregationFilters = this.getAggregationFilters(odataDBParams.query!, odataDBParams.aggregate ?? []);
     if (!isEmpty(aggregationFilters)) {
       if (aggregationPipeline[0]?.$match) aggregationPipeline.shift();
       const aggregationFiltersKeys = keys(aggregationFilters);
@@ -526,7 +524,9 @@ export class Repository implements IRepositoryPort {
 
     const session = dbSession ?? null;
     const result = await model.aggregate(aggregationPipeline).session(session);
-    const mappedData = (result || []).map((doc) => ({ toJSON: () => clearNilValuesAndEmptyObject(doc) })) as any[];
+    const mappedData = (result || []).map((doc) => ({
+      toJSON: (): RecordAny => clearNilValuesAndEmptyObject(doc),
+    })) as any[];
     return mappedData;
   }
 

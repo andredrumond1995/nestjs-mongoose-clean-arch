@@ -6,10 +6,9 @@ import {
   HTTP_SERVICE_TOKEN,
   LOGGER_SERVICE_TOKEN,
 } from '@shared/infrastructure/modules/shared-services/ioc-tokens/shared-services.ioc.tokens';
-import { RecordAny } from '@shared/typings/any.types';
 import { ILoggerService } from '@shared/typings/logger.types';
 import { Request, Response } from 'express';
-import { defaultTo, get, invoke } from 'lodash';
+import { defaultTo, invoke } from 'lodash';
 
 @Catch()
 export class GenericExceptionFilter implements ExceptionFilter {

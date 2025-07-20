@@ -15,4 +15,4 @@ export const todosUpdateZodSchema = z.object({
   is_deleted: z.boolean().optional(),
   due_date: z.coerce.date().optional(),
   priority: z.enum(['low', 'medium', 'high']).optional(),
-}); 
+});
