@@ -160,6 +160,16 @@ GitHub: [andredrumond1995](https://github.com/andredrumond1995)
 
 ---
 
+## Unit tests
+
+To run all unit tests for the project, execute:
+
+```
+npm run test
+```
+
+---
+
 ## 📄 License
 
 MIT
